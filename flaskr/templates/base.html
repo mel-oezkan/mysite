@@ -1,0 +1,36 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - SubStudies</title>
+<!-- icon library -->
+<script src="https://kit.fontawesome.com/87f2df7d64.js" crossorigin="anonymous"></script>
+<!-- font family -->
+<link href='https://fonts.googleapis.com/css?family=Caesar Dressing' rel='stylesheet'>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<div class="bg-image"></div>
+<nav>
+  <h1><a href="{{ url_for('index') }}">S u b S t u d y</a></h1>
+  <ul>
+    {% if g.user %}
+        {% if g.user['username'] == "superCoolMan20" or g.user["username"] == "lcaspari" %}
+            <li><a href="{{ url_for('blog.adminArea') }}"> AdminArea </a></li>
+        {% endif %}
+      <li><a href="{{ url_for('blog.teleBot') }}"> TelegramBot </a></li>
+      <li><span>{{ g.user['username'] }}</span>
+      <li><a href="{{ url_for('auth.logout') }}">
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+    {% else %}
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+    {% endif %}
+  </ul>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+
+  {% block content %}{% endblock %}
+</section>

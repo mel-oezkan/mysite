@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}TeleBot{% endblock %}</h1>
+  <link rel="stylesheet" href="{{ url_for('static', filename='index_style.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <p class="QR-Code-Text">Do you want to recieve a message every time someone creates a new event? <br>
+        Send the message to the chat linked below containing /register username</p>
+
+    <div class="QR-Code">
+        <img src="{{url_for('static', filename='images/qr-code.png')}}" />
+        <a class="QR-Code-Link" href="https://telegram.me/UniMeetBot"><h3 style="color: black">Or just click me</h3></a>
+    </div>
+
+
+{% endblock %}

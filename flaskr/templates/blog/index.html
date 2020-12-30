@@ -1,0 +1,415 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1 style="color: black">{% block title %}Events{% endblock %}</h1>
+  <link rel="stylesheet" href="{{ url_for('static', filename='index_style.css') }}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="events">
+  {% for meet in meets|reverse %}
+
+    <div class="meet-info-wrapper">
+
+
+      <div class="name-host" id="name-input">
+        <h3>Name</h3>
+        <h1> {{ meet["realName"] }}</h1>
+      </div>
+
+      <div class="date-host" id="date-input">
+        <h3>Date</h3>
+        <h1> {{ meet["datum"] }}</h1>
+      </div>
+
+      <div class="start-host" id="time-from-input">
+        <h3>From</h3>
+        <h1> {{ meet["from_time"] }}</h1>
+      </div>
+
+      <div class="end-host" id="time-to-input">
+        <h3>To</h3>
+        <h1> {{ meet["to_time"] }}</h1>
+      </div>
+
+      <div class="subject-host" id="subject-input">
+        <h3>Subject</h3>
+        <h1> {{ meet["study_subject"] }}</h1>
+      </div>
+
+      <div class="place-host" id="place-input">
+        <h3>Place</h3>
+        <h1> {{ meet["place"] }}</h1>
+      </div>
+
+      <div class="people-amount" id="participant-input">
+        <h3>People</h3>
+        <h1> {{ meet["current_participants"] }}/{{ meet["max_participants"] }}</h1>
+      </div>
+
+      <!-- Displays the delete Button if the session user is equivalent to the author -->
+      {% if g.user['id'] == meet['author_id'] %}
+
+      <!-- Adding an id to the button so JQuerry can detect the name of the pressed button -->
+      <!-- and then send a Post request with that ID to the python backend to delet it -->
+      <button type="button" id="{{ meet["id"] }}" class="meet-config delete-btn">
+        <i class="fas fa-trash-alt fa-2x"></i>
+      </button>
+      {% endif %}
+
+      {% if g.user['id'] != meet['author_id'] %}
+        {% if meet["current_participants"] ==  meet["max_participants"] or meet["id"] in inPosts %}
+          <!-- loop through participant -->
+          <!-- if participant has meet_id then -->
+          <!-- check if g.user is ==  -->
+
+
+          <div class="join-btn-disabled">
+            <i class="fas fa-user-plus fa-2x"></i>
+          </div>
+
+        {% else %}
+          <div id='{{ meet["id"] }}' class="join-btn">
+            <i class="fas fa-user-plus fa-2x"></i>
+          </div>
+        {% endif %}
+
+      {% endif %}
+
+    </div>
+
+    {% for participant in participants %}
+      {% if participant["meet_id"] == meet["id"] %}
+      <div class="participant-wrapper">
+
+        <div class="name-partic">
+          <h3>Name</h3>
+          <h1> {{ participant["realName"] }}</h1>
+        </div>
+
+        <div class="start-partic">
+          <h3>From</h3>
+          <h1> {{ participant["from_time"] }}</h1>
+        </div>
+
+        <div class="end-partic">
+          <h3>To</h3>
+          <h1> {{ participant["to_time"] }}</h1>
+        </div>
+
+        <div class="subject-partic">
+          <h3>Subject</h3>
+          <h1> {{ participant["study_subject"] }}</h1>
+        </div>
+
+      </div>
+      {% endif %}
+    {% endfor %}
+
+
+
+    <!-- ========================================= NEW PARTICIPANT =======================================================  -->
+
+    <div id="part-div{{meet["id"]}}" class="part-div">
+      <form id="{{ meet["id"] }}" class="form-inline par-form">
+
+        <div class="form-group" id="name-partic-input">
+          <h3>Name</h3>
+          <label class="sr-only" for="ParNameInput-{{ meet["id"] }}">Name</label>
+          <input type="text" class="form-control" id="ParNameInput-{{ meet["id"] }}" disabled value="{{ g.user["realName"] }}">
+        </div>
+
+        <div class="form-group" id="start-partic-input">
+          <h3>From</h3>
+          <label class="sr-only" for="ParTimeFromInput-{{ meet["id"] }}">From</label>
+          <input type="time" class="form-control" id="ParTimeFromInput-{{ meet["id"] }}" min="00:00" max="23:59" required>
+        </div>
+
+        <div class="form-group" id="end-partic-input">
+          <h3>To</h3>
+          <label class="sr-only" for="ParTimeToInput-{{ meet["id"] }}">To</label>
+          <input type="time" class="form-control" id="ParTimeToInput-{{ meet["id"] }}" min="00:00" max="23:59" required>
+        </div>
+
+        <div class="form-group" id="subject-partic-input">
+          <h3>Subject</h3>
+          <label class="sr-only" for="ParSubjectInput-{{ meet["id"] }}">Subject</label>
+          <input type="text" class="form-control" id="ParSubjectInput-{{ meet["id"] }}" maxlength="100">
+        </div>
+
+        <div class="par-buttons">
+          <!-- submit -->
+          <button id="{{ meet['id'] }}" type="submit" class="form-group addUser">
+            <i id="checkButton" class="far fa-check-circle fa-3x" style="color: black"></i>
+          </button>
+          <span></span>
+
+          <!-- toggle -->
+          <button onclick="hideMe({{ meet['id'] }})" type="button">
+            <i id="cancelButton" class="fas fa-minus-circle fa-3x"></i>
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+
+    <!-- Special property to seperate the meet entries -->
+    {% if not loop.last %}
+      <br style="margin: 1em;">
+    {% endif %}
+
+    {% endfor %}
+
+    {% for i in inPosts %}
+      <h1> {{ i["id"] }}</h1>
+    {% endfor %}
+
+
+
+    <!-- ================================================= NEW EVENT ========================================== -->
+    <!--  This can be generated with js  -->
+    <!--  Display on/off with js  -->
+    <div class="new-event">
+      <form id="meet-form" class="meet-form">
+        <div class="form-group" id="name-input">
+          <h3>Name</h3>
+          <label class="sr-only" for="nameInput">Name</label>
+          <input type="text" class="form-control" id="NameInput" value= "{{ g.user['realname'] }}" disabled>
+        </div>
+
+        <div class="form-group" id="date-input">
+          <h3>Date</h3>
+          <label class="sr-only" for="DateInput">From</label>
+          <input type="date" class="form-control" id="DateInput" required>
+        </div>
+
+        <div class="form-group" id="time-from-input">
+          <h3>From</h3>
+          <label class="sr-only" for="TimeFromInput">From</label>
+          <input type="time" class="form-control" id="TimeFromInput" min="00:00" max="23:59" value="09:00" required>
+        </div>
+
+        <div class="form-group" id="time-to-input">
+          <h3>To</h3>
+          <label class="sr-only" for="TimeToInput">To</label>
+          <input type="time" class="form-control" id="TimeToInput" min="00:00" max="23:59" value="18:00" required>
+        </div>
+
+        <div class="form-group" id="subject-input">
+          <h3>Subject</h3>
+          <label class="sr-only" for="SubjectInput">Subject</label>
+          <input type="text" class="form-control" id="SubjectInput" maxlength="48">
+        </div>
+
+        <div class="form-group" id="place-input">
+          <h3>Place</h3>
+          <label class="sr-only" for="PlaceInput">Place</label>
+          <input type="text" class="form-control" id="PlaceInput" maxlength="48">
+        </div>
+
+        <div class="form-group" id="participant-input" style="">
+          <h3>People</h3>
+          <label class="sr-only" for="ParticipantInput">MaxPeople</label>
+          <input type="number" class="form-control" id="ParticipantInput" value="1" min="0" max="20">
+        </div>
+
+        <button id="checkButtonDiv" type="submit" class="form-group" id="submit-button">
+          <i id="checkButton" class="far fa-check-circle fa-3x"></i>
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="btn-wrapper">
+    <button id="add-btn" type="submit" class="input-"><h1>
+      <i id="show" class="fas fa-plus fa-sm" style="display: inline;"></i>
+      <i id="toggle" class="fas fa-minus fa-sm" style="color: white; display: none;"></i>
+    </h1></button>
+  </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+
+  function hideMe(number) {
+    var x = document.getElementById("part-div".concat(number));
+    console.log(x)
+    x.style.border = "solid red 2px"
+    x.style.display = "none";
+  }
+
+  $(document).ready(function() {
+
+
+    $('#meet-form').on('submit', function(event) {
+
+      $.ajax({
+        data : {
+          date     : $('#DateInput').val(),
+          from_t   : $('#TimeFromInput').val(),
+          to_t     : $('#TimeToInput').val(),
+          subject  : $('#SubjectInput').val(),
+          place    : $('#PlaceInput').val(),
+          maxPeople: $('#ParticipantInput').val()
+        },
+        type : 'POST',
+        url : {{ url_for('blog.process')|tojson|safe }}
+      })
+      .done(function(data) {
+
+        console.log("Debug 2")
+
+        if (data.error) {
+          console.log("Error happened")
+
+        }
+        else {
+          // $('#successAlert').text(data.name).show();
+          $('#errorAlert').hide();
+
+          console.log("Error did not happen")
+        }
+
+        // Reload the page, so user can see his event
+        location.reload();
+
+      });
+
+      event.preventDefault();
+    });
+
+
+
+
+
+    $('#add-btn').click(function() {
+      if($('#show').css('display') == 'inline') {
+        $('#show').css('display', "none");
+        $('#toggle').css('display', "inline");
+        $(".new-event").css("display", "grid");
+
+      } else {
+        $('#show').css('display', "inline");
+        $('#toggle').css('display', "none");
+        $(".new-event").css("display", "none");
+      }
+    });
+
+    // get the id of the pressed button
+    // can be improved by adding class names to delete buttons and only listening for those
+    $("button").click(function() {
+      //alert(this.id); // or alert($(this).attr('id'));
+    });
+
+    $('.join-btn').click(function() {
+      //alert(typeof(this.id));
+      var full = "#part-div".concat(this.id)
+      $(full).css("display", "grid");
+    });
+
+
+    $('.par-form').on('submit', function(event) {
+      //alert(this.id);
+
+      $.ajax({
+        data : {
+          name     : $('#ParNameInput-'.concat(this.id)).val(),
+          parFrom   : $('#ParTimeFromInput-'.concat(this.id)).val(),
+          parTo     : $('#ParTimeToInput-'.concat(this.id)).val(),
+          parSubject  : $('#ParSubjectInput-'.concat(this.id)).val(),
+          meetId : this.id
+        },
+        type : 'POST',
+        url : {{ url_for('blog.addParticipant')|tojson|safe }}
+      })
+      .done(function(data) {
+
+        if (data.error) {
+          console.log("Error happened")
+        }
+        else {
+          console.log("Error did not happen")
+        }
+
+        // Reload the page, so user can see his event
+        location.reload();
+
+      });
+
+      event.preventDefault();
+
+    });
+
+
+    $(".delete-btn").click(function(){
+      $.ajax({
+          data : {
+            meetId : this.id
+          },
+          type : 'POST',
+          url : {{ url_for('blog.delete')|tojson|safe }}
+      })
+      .done(function(data) {
+
+          if (data.error) {
+            console.log("Error happened")
+
+          }
+          else {
+            // $('#successAlert').text(data.name).show();
+            $('#errorAlert').hide();
+
+            console.log("Error did not happen")
+          }
+
+          // Reload the page, so user can see his event
+          location.reload();
+      });
+    });
+
+    // Default Date for new Event is tomorrow
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    // dateConv is the date at the end in 00 to 31
+    var dateConv = tomorrow.getDate();
+    // if the day is between 1 and 9, set a 0 in front of it
+    dateConv = String(dateConv);
+    if (dateConv.length == 1) {
+      dateConv = "0" + dateConv;
+    }
+    const date = tomorrow.getFullYear() + '-' + (tomorrow.getMonth() + 1) + '-' + dateConv;
+    document.querySelector('#DateInput').value = date;
+
+    // An event can only be created from today on
+    dateConv = today.getDate();
+    dateConv = String(dateConv);
+    if (dateConv.length == 1) {
+      dateConv = "0" + dateConv;
+    }
+    const minDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + dateConv;
+    document.querySelector('#DateInput').min = minDate;
+
+    // An Event can only be created in the next two weeks
+    const max = new Date();
+    max.setDate(today.getDate() + 14);
+    dateConv = max.getDate();
+    // if the day is between 1 and 9, set a 0 in front of it
+    dateConv = String(dateConv);
+    if (dateConv.length == 1) {
+      dateConv = "0" + dateConv;
+    }
+    const maxDate = max.getFullYear() + '-' + (max.getMonth() + 1) + '-' + dateConv;
+    document.querySelector('#DateInput').max = maxDate;
+
+  });
+
+
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}TeleBot{% endblock %}</h1>
+  <link rel="stylesheet" href="{{ url_for('static', filename='index_style.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% if g.user['username'] == "superCoolMan20" or g.user['username'] == "lcaspari" or g.user['username'] == "lucaspari" %}
+    {% for chat in userChats %}
+        <div class="userChat">
+            <h2 style="color: black"> {{ chat["realName"] }} </h2>
+            <h2 style="color: black"> {{ chat["username"] }} </h2>
+            <h2 style="color: black"> {{ chat["chatId"] }} </h2>
+        </div>
+    {% endfor %}
+
+
+{% else %}
+    <h1>Thats weird ... You are not supposed to be here</h1>
+
+{% endif %}
+
+
+{% endblock %}

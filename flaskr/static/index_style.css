@@ -1,0 +1,401 @@
+:root {
+    --akzentfarbe:#658BA0;
+    --akzentfaRBA: 101, 139, 160;
+    --akzentfarbesemi: #abc2cf;
+    --actionfarbe: 100, 100, 100;
+  }
+
+h1 {
+    color: white;
+}
+
+h3 {
+    font-size: 1em;
+    font-style: italic;
+    color: white;
+}
+
+.join-btn {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 1em;
+    color: white;
+}
+
+.join-btn-disabled {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 1em;
+    color: lightgray;
+}
+
+#checkButton {
+    margin-top: auto;
+    margin-bottom: auto;
+    color: white !important;
+}
+
+#cancelButton {
+    color: white !important;
+}
+
+#add-btn {
+    width: 5em;
+    height: 5em;
+    padding: 0;
+    border-radius: 50%;
+    border: inherit;
+    display: block;
+    background: rgba(var(--actionfarbe), 0.5) ;
+    margin-top: 2em;
+}
+
+#add-btn:hover {
+    background: rgba(var(--actionfarbe), 1);
+}
+
+#add-btn h1{
+    margin: auto;
+    font-size: 4em;
+    width: 1em;
+    height: 1.5em;
+    line-height: 1.25em;
+}
+
+input {
+    height: 2em;
+}
+
+.input-button {
+    width: 6em;
+    height: 2em;
+    padding: 0;
+    text-align: center;
+}
+
+/* Plus and Minus - Button */
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+.people-amount {
+
+}
+
+.part-div h3{
+    font-style: normal;
+}
+
+
+/* ======================= Main Post ============================= */
+.meet-info-wrapper {
+    background: var(--akzentfarbe);
+
+    display: grid;
+    grid-template-columns: minmax(130px, 180px) minmax(100px, 150px)
+                            minmax(80px, 90px) minmax(80px, 90px)
+                            minmax(130px, 300px) minmax(130px, 200px)
+                            minmax(70px, 80px) minmax(60px, 70px);
+    gap: 0.5em;
+
+    justify-content: space-between;
+    justify-items: inherit;
+
+    margin-top: 1em;
+    grid-auto-flow: row;
+}
+
+.meet-info-wrapper div {
+    padding: 0 1em;
+}
+
+.QR-Code {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.QR-Code img{
+    width: 200px;
+    height: 200px;
+}
+
+.QR-Code-Text {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.QR-Code-Link {
+    text-decoration: none;
+    color: black !important;
+}
+
+.userChat {
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    gap: 1em;
+    justify-content: space-around;
+}
+
+
+
+
+/* delete button*/
+.meet-config {
+
+
+    align-items: center;
+    color: white;
+}
+
+/* =========================== Participants ============================== */
+.participant-wrapper {
+    background: var(--akzentfarbesemi);
+
+    display: grid;
+    grid-template-columns: minmax(130px, 180px) minmax(100px, 150px)
+                            minmax(80px, 90px) minmax(80px, 90px)
+                            minmax(130px, 300px) minmax(130px, 200px)
+                            minmax(70px, 80px) minmax(60px, 70px);
+    gap: 0.5em;
+
+    justify-content: space-between;
+
+
+    grid-auto-flow: row;
+}
+
+.participant-wrapper div {
+    padding: 0 1em;
+}
+
+.name-partic {
+    grid-column: 1/3;
+}
+
+.start-partic {
+
+
+}
+
+.end-partic {
+
+
+}
+
+.subject-partic {
+
+
+}
+
+/* ======================= New Participant Formular ============================== */
+.part-div{
+    display: none;
+
+
+    /* grid-template-columns: */
+    background: var(--akzentfarbesemi);
+}
+
+.form-inline {
+
+
+    display: grid;
+    /* grid-template-columns: */
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+
+/* ========================= New Event Formular ============================= */
+.new-event {
+    display: none;
+    background: var(--akzentfarbe);
+
+    margin-top: 2em;
+}
+
+
+.meet-form {
+    display: grid;
+    grid-template-columns: minmax(130px, 180px) minmax(100px, 150px)
+                            minmax(80px, 90px) minmax(80px, 90px)
+                            minmax(130px, 300px) minmax(130px, 200px)
+                            minmax(70px, 80px) minmax(60px, 70px);
+    gap: 0.5em;
+
+    justify-content: space-around;
+    justify-items: inherit;
+
+    grid-auto-flow: row;
+}
+
+.meet-form div {
+    padding: 0 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.meet-form div input {
+    box-sizing: border-box;
+    padding: 1em 0.5em;
+    width: 100%;
+}
+
+
+@media only screen and (max-width: 1350px) {
+    .meet-info-wrapper {
+        grid-template-columns: minmax(130px, 350px) minmax(100px, 250px)
+                                minmax(70px, 130px) minmax(70px, 150px);
+        justify-content: space-between;
+        justify-items: baseline;
+    }
+
+    .participant-wrapper {
+        grid-template-columns: minmax(130px, 350px) minmax(100px, 250px)
+                                minmax(70px, 130px) minmax(70px, 150px);
+        justify-content: space-between;
+        justify-items: baseline;
+    }
+
+    .meet-form {
+        grid-template-columns: minmax(130px, 350px) minmax(100px, 250px)
+                                minmax(70px, 130px) minmax(70px, 150px);
+        justify-content: space-between;
+        justify-items: baseline;
+    }
+
+    .participant-wrapper .name-partic {
+        grid-column: 1/2;
+        grid-row: 1;
+    }
+
+    .participant-wrapper .subject-partic {
+        grid-column: 2/3;
+        grid-row: 1;
+    }
+
+
+}
+
+@media only screen and (max-width: 850px) {
+    .meet-info-wrapper {
+        grid-template-columns: minmax(130px, 250px) minmax(100px, 250px);
+        justify-content: space-between;
+        justify-items: baseline;
+    }
+
+    .participant-wrapper {
+        grid-template-columns: minmax(130px, 250px) minmax(100px, 250px);
+        justify-content: space-between;
+        justify-items: baseline;
+    }
+
+    .participant-wrapper .name-partic {
+        grid-column: 1/2;
+        grid-row: 1;
+    }
+
+    .participant-wrapper .subject-partic {
+        grid-column: 1/2;
+        grid-row: 2;
+    }
+
+    .meet-form {
+        grid-template-columns: minmax(130px, 250px) minmax(100px, 250px);
+        justify-content: space-between;
+        justify-items: baseline;
+    }
+
+  }
+
+
+@media only screen and (max-width: 650px) {
+    .meet-info-wrapper {
+      grid-template-columns: 1fr;
+      justify-items: inherit;
+      padding: 0;
+      border: solid black;
+    }
+
+    .meet-info-wrapper div {
+        padding: 0 1em;
+    }
+
+    .delete-btn {
+        background-color: #aacad7;
+        padding: 1.5em 0 ;
+
+    }
+
+    .meet-form {
+        grid-template-columns: 1fr;
+        justify-items: inherit;
+        padding: 0;
+        border: solid black;
+
+        padding: 0;
+    }
+
+    .meet-form #name-input {
+
+    }
+    .meet-form #date-input {
+
+    }
+    .meet-form #subject-input {
+
+    }
+    .meet-form #participant-input {
+
+    }
+    .meet-form #place-input {
+
+    }
+
+    .meet-form div{
+        padding: 0 1em;
+    }
+
+    .meet-form div input {
+        width: 100%;
+    }
+
+    .meet-form #place-input {
+        justify-self: stretch;
+    }
+
+    .meet-form #checkButtonDiv {
+        background-color: #aacad7;
+        width: 100%;
+        padding: 1.5em 0 ;
+    }
+
+    .participant-wrapper {
+        grid-template-columns: 1fr;
+        justify-items: inherit;
+        border: solid black;
+    }
+
+    .participant-wrapper .subject-partic {
+        grid-column: 1/2;
+        grid-row: 4;
+    }
+
+    .join-btn {
+        margin: auto;
+        width: 100%;
+
+        text-align: center;
+
+        padding: 1.5em 0 !important;
+        background-color: #aacad7;
+
+    }
+
+  }

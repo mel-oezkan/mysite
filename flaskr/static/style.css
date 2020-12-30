@@ -1,0 +1,163 @@
+:root {
+  --akzentfarbe:#658BA0;
+  --akzentfaRBA: 101, 139, 160;
+  --actionfarbe: 100, 100, 100;
+} 
+
+html {
+  font-family: sans-serif;
+  background: #eee;
+  background-image: url(https://cdn.pixabay.com/photo/2020/02/16/00/17/background-4852316_1280.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 1rem;
+  font-family: sans-serif;
+  margin-top: 3em;
+}
+
+body {
+  max-width: 80%;
+  margin: auto;
+  background: white;
+}
+
+button {
+  background: none;
+  border: none;
+  color: white;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif;
+  
+}
+
+a {
+  color: white;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid lightgray;
+}
+
+nav {
+  background: black;
+  background-image: url(https://cdn.pixabay.com/photo/2016/10/22/17/06/gradient-1761190_1280.jpg);
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  padding: 0.5em;
+  color: white;
+}
+
+nav h1 {
+  font-size: xx-large;
+  flex: auto;
+  margin: 0;
+  font-family: 'Caesar Dressing';
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+nav h1 a {
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+}
+
+nav ul  {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+nav ul li a, nav ul li span, header .action {
+  display: block;
+  padding: 0.5rem;
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.content {
+  padding: 0 1rem 1rem;
+}
+
+.content > header {
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: flex-end;
+}
+
+.content > header h1 {
+  flex: auto;
+  margin: 1rem 0 0.25rem 0;
+}
+
+.flash {
+  margin: 1em 0;
+  padding: 1em;
+  background: #cae6f6;
+  border: 1px solid #377ba8;
+}
+
+.post > header {
+  display: flex;
+  align-items: flex-end;
+  font-size: 0.85em;
+}
+
+.post > header > div:first-of-type {
+  flex: auto;
+}
+
+.post > header h1 {
+  font-size: 1.5em;
+  margin-bottom: 0;
+}
+
+.post .about {
+  color: slategray;
+  font-style: italic;
+}
+
+.post .body {
+  white-space: pre-line;
+}
+
+.content:last-child {
+  margin-bottom: 0;
+}
+
+.content label {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.content input, .content textarea {
+  margin-bottom: 1em;
+}
+
+.content textarea {
+  min-height: 12em;
+  resize: vertical;
+}
+
+.log-in-reg {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+  background: var(--akzentfarbe)
+}
+
+.log-reg-button {
+  width: 8em;
+  height: 2em;
+  align-self: center;
+}
